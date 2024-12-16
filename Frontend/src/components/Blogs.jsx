@@ -40,6 +40,12 @@ export function Blogs() {
       answer:
         "Scheduled delivery orders can be cancelled 72 hours prior to your selected delivery date for a full refund.",
     },
+    {
+      id: 4,
+      question: "Let’s get to the bloody truth. How much blood do we lose?",
+      answer:
+        "Scheduled delivery orders can be cancelled 72 hours prior to your selected delivery date for a full refund.",
+    },
   ];
   return (
     <>

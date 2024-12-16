@@ -1,7 +1,15 @@
 "use client";
 
 import React, { useState, useMemo, useEffect } from "react";
-import { format, addDays } from "date-fns";
+import {
+  addDays,
+  format,
+  startOfMonth,
+  endOfMonth,
+  eachDayOfInterval,
+  isSameDay,
+  isWithinInterval,
+} from "date-fns";
 import { useNavigate } from "react-router-dom";
 import {
   Calendar,
@@ -113,6 +121,50 @@ export function PeriodTracker() {
       );
       setNextPeriodPrediction(format(nextPeriodDate, "yyyy-MM-dd"));
     }
+  };
+
+  const renderCalendar = () => {
+    if (!nextPeriodPrediction) return null;
+
+    const monthStart = startOfMonth(nextPeriodPrediction);
+    const monthEnd = endOfMonth(nextPeriodPrediction);
+    const daysInMonth = eachDayOfInterval({ start: monthStart, end: monthEnd });
+
+    const periodStartDate = new Date(nextPeriodPrediction);
+    const periodEndDate = addDays(
+      periodStartDate,
+      parseInt(data.lastPeriodDuration, 10) - 1
+    );
+
+    return (
+      <div className="mt-4 bg-white p-4 rounded-md shadow-md">
+        <h3 className="text-lg font-semibold mb-2">
+          {format(nextPeriodPrediction, "MMMM yyyy")}
+        </h3>
+        <div className="grid grid-cols-7 gap-1">
+          {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
+            <div key={day} className="text-center font-medium text-gray-500">
+              {day}
+            </div>
+          ))}
+          {daysInMonth.map((date) => (
+            <div
+              key={date.toISOString()}
+              className={`text-center p-2 rounded ${
+                isWithinInterval(date, {
+                  start: periodStartDate,
+                  end: periodEndDate,
+                })
+                  ? "bg-pink-100"
+                  : ""
+              }`}
+            >
+              {format(date, "d")}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   };
 
   const handleSubmit = () => {
@@ -575,68 +627,71 @@ export function PeriodTracker() {
           </p>
         </div>
 
-        {renderSection(
-          "Cycle Information",
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">
-                  Start date of your last period
-                </label>
-                <div className="relative">
-                  <input
-                    type="date"
-                    name="lastPeriodStart"
-                    value={data.lastPeriodStart}
-                    onChange={handleInputChange}
-                    className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-pink-300"
-                  />
-                  <Calendar className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">
-                  Last Period Duration (days)
-                </label>
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">
+                Start date of your last period
+              </label>
+              <div className="relative">
                 <input
-                  type="number"
-                  name="lastPeriodDuration"
-                  value={data.lastPeriodDuration}
+                  type="date"
+                  name="lastPeriodStart"
+                  value={data.lastPeriodStart}
                   onChange={handleInputChange}
-                  min="1"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-pink-300"
+                  className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-pink-300"
                 />
+                <Calendar className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
               </div>
             </div>
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
-                Average Cycle Duration (days)
+                Last Period Duration (days)
               </label>
               <input
                 type="number"
-                name="cycleDuration"
-                value={data.cycleDuration}
+                name="lastPeriodDuration"
+                value={data.lastPeriodDuration}
                 onChange={handleInputChange}
-                min="21"
-                max="35"
+                min="1"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-pink-300"
               />
             </div>
-            <button
-              onClick={predictNextPeriod}
-              className="w-full bg-pink-500 hover:bg-pink-600 text-white font-medium py-2 px-4 rounded-md transition duration-300 shadow-md"
-            >
-              Predict Next Period
-            </button>
-            {nextPeriodPrediction && (
+          </div>
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-gray-700">
+              Average Cycle Duration (days)
+            </label>
+            <input
+              type="number"
+              name="cycleDuration"
+              value={data.cycleDuration}
+              onChange={handleInputChange}
+              min="21"
+              max="35"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-pink-300"
+            />
+          </div>
+          <button
+            onClick={predictNextPeriod}
+            className="w-full bg-pink-500 hover:bg-pink-600 text-white font-medium py-2 px-4 rounded-md transition duration-300 shadow-md"
+          >
+            Predict Next Period
+          </button>
+          {nextPeriodPrediction && (
+            <div>
               <p className="text-center font-medium text-gray-700 bg-pink-100 p-3 rounded-md">
                 Predicted next period:{" "}
-                {format(new Date(nextPeriodPrediction), "MMMM d, yyyy")}
+                {format(nextPeriodPrediction, "MMMM d, yyyy")}
               </p>
-            )}
-          </div>,
-          "cycleInfo"
-        )}
+              {renderCalendar()}
+            </div>
+          )}
+          <div className="flex content-center items-center gap-2 bg-white px-3 rounded-md py-1">
+            <i className="fa-solid fa-square text-pink-100"></i>{" "}
+            <h3>Predicted Next Period</h3>
+          </div>
+        </div>
 
         {renderSection(
           "Mood Tracking",
@@ -770,6 +825,7 @@ export function PeriodTracker() {
               </div>
             </div>
           </div>,
+
           "symptomTracking"
         )}
 
