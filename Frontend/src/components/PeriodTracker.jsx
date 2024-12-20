@@ -1,8 +1,27 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { format, addDays } from "date-fns";
 import { useNavigate } from "react-router-dom";
-import { Calendar, Frown, Smile, Angry, Coffee, Zap, Moon, ChevronDown, ChevronUp, Heart, Sun, LayoutDashboard, Home, GraduationCap, ShoppingBag, ActivitySquare, Stethoscope, Bot } from 'lucide-react';
-import axios from 'axios'; 
+import {
+  Calendar,
+  Frown,
+  Smile,
+  Angry,
+  Coffee,
+  Zap,
+  Moon,
+  ChevronDown,
+  ChevronUp,
+  Heart,
+  Sun,
+  LayoutDashboard,
+  Home,
+  GraduationCap,
+  ShoppingBag,
+  ActivitySquare,
+  Stethoscope,
+  Bot,
+} from "lucide-react";
+import axios from "axios";
 
 const server_url = import.meta.env.VITE_SERVER_URL;
 
@@ -46,7 +65,9 @@ export function PeriodTracker() {
   const [moodDate, setMoodDate] = useState(format(new Date(), "yyyy-MM-dd"));
   const [symptoms, setSymptoms] = useState([]);
   const [symptomSeverities, setSymptomSeverities] = useState({});
-  const [symptomDate, setSymptomDate] = useState(format(new Date(), "yyyy-MM-dd"));
+  const [symptomDate, setSymptomDate] = useState(
+    format(new Date(), "yyyy-MM-dd")
+  );
   const [sleepDuration, setSleepDuration] = useState("");
   const [sleepQuality, setSleepQuality] = useState("");
   const [nextPeriodPrediction, setNextPeriodPrediction] = useState("");
@@ -58,20 +79,22 @@ export function PeriodTracker() {
     healthTips: true,
   });
   const [showHealthTips, setShowHealthTips] = useState(false);
-  const [darkMode, setDarkMode] = useState(() => localStorage.getItem('darkMode') === 'true');
+  const [darkMode, setDarkMode] = useState(
+    () => localStorage.getItem("darkMode") === "true"
+  );
 
   useEffect(() => {
     if (darkMode) {
-      document.documentElement.classList.add('dark');
+      document.documentElement.classList.add("dark");
     } else {
-      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.remove("dark");
     }
   }, [darkMode]);
 
   const toggleDarkMode = () => {
-    setDarkMode(prevMode => {
+    setDarkMode((prevMode) => {
       const newMode = !prevMode;
-      localStorage.setItem('darkMode', newMode.toString());
+      localStorage.setItem("darkMode", newMode.toString());
       return newMode;
     });
   };
@@ -138,16 +161,16 @@ export function PeriodTracker() {
     }
   };
 
-  const handleSubmit = async () => { 
-    const userId = localStorage.getItem('userId');
-    
+  const handleSubmit = async () => {
+    const userId = localStorage.getItem("userId");
+
     if (!userId) {
-        alert('Please log in first');
-        return;
+      alert("Please log in first");
+      return;
     }
 
     const submissionData = {
-      userId, 
+      userId,
       cycleDuration,
       lastPeriodStart,
       lastPeriodDuration,
@@ -164,28 +187,40 @@ export function PeriodTracker() {
 
     try {
       try {
-        const response = await axios.post(`${server_url}trackerdata`, submissionData);
-        console.log('Data submitted successfully:', response.data);
+        const response = await axios.post(
+          `${server_url}trackerdata`,
+          submissionData
+        );
+        console.log("Data submitted successfully:", response.data);
         setShowHealthTips(true);
-        alert('Data submitted successfully!');
+        alert("Data submitted successfully!");
         return;
       } catch (primaryError) {
-        console.warn('Primary server failed, attempting local fallback:', primaryError);
+        console.warn(
+          "Primary server failed, attempting local fallback:",
+          primaryError
+        );
       }
-      
-      const localResponse = await axios.post('http://localhost:3000/trackerdata', submissionData);
-      console.log('Data submitted successfully via local server:', localResponse.data);
+
+      const localResponse = await axios.post(
+        "http://localhost:3000/trackerdata",
+        submissionData
+      );
+      console.log(
+        "Data submitted successfully via local server:",
+        localResponse.data
+      );
       setShowHealthTips(true);
-      alert('Data submitted successfully!');
+      alert("Data submitted successfully!");
     } catch (error) {
-      console.error('Error submitting data:', error);
-      
+      console.error("Error submitting data:", error);
+
       if (error.response) {
-        alert(`Error: ${error.response.data.message || 'Server error'}`);
+        alert(`Error: ${error.response.data.message || "Server error"}`);
       } else if (error.request) {
-        alert('No response from server. Please check your network connection.');
+        alert("No response from server. Please check your network connection.");
       } else {
-        alert('Error submitting data. Please try again.');
+        alert("Error submitting data. Please try again.");
       }
     }
   };
@@ -203,7 +238,9 @@ export function PeriodTracker() {
         className="flex justify-between items-center cursor-pointer"
         onClick={() => toggleSection(section)}
       >
-        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">{title}</h3>
+        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+          {title}
+        </h3>
         {expandedSections[section] ? (
           <ChevronUp className="w-5 h-5 text-gray-500 dark:text-gray-400" />
         ) : (
@@ -313,37 +350,81 @@ export function PeriodTracker() {
     );
 
     return tips;
-  }, [cycleDuration, lastPeriodDuration, moodTypes, sleepDuration, sleepQuality, symptoms]);
+  }, [
+    cycleDuration,
+    lastPeriodDuration,
+    moodTypes,
+    sleepDuration,
+    sleepQuality,
+    symptoms,
+  ]);
 
   return (
-    <div className={`flex h-screen ${darkMode ? 'dark' : ''}`}>
+    <div className={`flex h-screen ${darkMode ? "dark" : ""}`}>
       {/* Sidebar */}
-      <aside className="bg-pink-100 dark:bg-gray-800 w-64 min-h-screen p-4">
+      <aside className="bg-pink-50 dark:bg-gray-800 w-64 min-h-screen p-4">
         <nav className="mt-8">
           <div className="px-4 py-4 flex flex-col space-y-2">
-            <h1 className="text-2xl font-bold text-pink-600 dark:text-pink-400 mb-4">FlowCare</h1>
-            <SidebarLink icon={<LayoutDashboard size={20} />} label="Dashboard" onClick={() => navigate('/dashboard')} />
-            <SidebarLink icon={<Home size={20} />} label="Home" onClick={() => navigate('/')} />
-            <SidebarLink icon={<GraduationCap size={20} />} label="Education" onClick={() => navigate('/blogs')} />
-            <SidebarLink icon={<ShoppingBag size={20} />} label="Shop" onClick={() => navigate('/Ecom')} />
-            <SidebarLink icon={<ActivitySquare size={20} />} label="Track Your Health" onClick={() => navigate('/tracker')} active />
-            <SidebarLink icon={<Stethoscope size={20} />} label="Expert Consultation" onClick={() => navigate('/consultations')} />
-            <SidebarLink icon={<Bot size={20} />} label="AI Chatbot" onClick={() => navigate('/ChatBot')} />
+            <h1 className="text-2xl font-bold text-pink-600 dark:text-pink-400 mb-4">
+              FlowCare
+            </h1>
+            <SidebarLink
+              icon={<LayoutDashboard size={20} />}
+              label="Dashboard"
+              onClick={() => navigate("/dashboard")}
+            />
+            <SidebarLink
+              icon={<Home size={20} />}
+              label="Home"
+              onClick={() => navigate("/")}
+            />
+            <SidebarLink
+              icon={<GraduationCap size={20} />}
+              label="Education"
+              onClick={() => navigate("/blogs")}
+            />
+            <SidebarLink
+              icon={<ShoppingBag size={20} />}
+              label="Shop"
+              onClick={() => navigate("/Ecom")}
+            />
+            <SidebarLink
+              icon={<ActivitySquare size={20} />}
+              label="Track Your Health"
+              onClick={() => navigate("/tracker")}
+              active
+            />
+            <SidebarLink
+              icon={<Stethoscope size={20} />}
+              label="Expert Consultation"
+              onClick={() => navigate("/consultations")}
+            />
+            <SidebarLink
+              icon={<Bot size={20} />}
+              label="AI Chatbot"
+              onClick={() => navigate("/ChatBot")}
+            />
           </div>
         </nav>
       </aside>
 
       {/* Main Content */}
       <main className="flex-1 p-6 overflow-auto bg-white dark:bg-gray-900">
-        <div className="max-w-4xl mx-auto space-y-8">
+        <div className="w-[80%] mx-auto space-y-8">
           {/* Header */}
           <div className="flex justify-between items-center">
-            <h2 className="text-3xl font-bold text-pink-600 dark:text-pink-400">Period Tracker</h2>
+            <h2 className="text-3xl font-bold text-pink-600 dark:text-pink-400">
+              Period Tracker
+            </h2>
             <button
               onClick={toggleDarkMode}
               className="p-2 rounded-full bg-gray-200 dark:bg-gray-700"
             >
-              {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              {darkMode ? (
+                <Sun className="h-5 w-5" />
+              ) : (
+                <Moon className="h-5 w-5" />
+              )}
             </button>
           </div>
 
@@ -459,7 +540,9 @@ export function PeriodTracker() {
                           onChange={() => setMoodSeverity(option.value)}
                           className="form-radio text-pink-500"
                         />
-                        <span className="ml-2 text-gray-700 dark:text-gray-300">{option.name}</span>
+                        <span className="ml-2 text-gray-700 dark:text-gray-300">
+                          {option.name}
+                        </span>
                       </label>
                     ))}
                   </div>
@@ -500,7 +583,9 @@ export function PeriodTracker() {
                           onChange={() => handleSymptomChange(symptom)}
                           className="form-checkbox text-pink-500"
                         />
-                        <span className="ml-2 text-gray-700 dark:text-gray-300">{symptom}</span>
+                        <span className="ml-2 text-gray-700 dark:text-gray-300">
+                          {symptom}
+                        </span>
                       </label>
                     ))}
                   </div>
@@ -623,8 +708,8 @@ const SidebarLink = ({ icon, label, onClick, active = false }) => {
       onClick={onClick}
       className={`flex items-center space-x-2 w-full px-2 py-2 rounded-lg transition-colors ${
         active
-          ? 'bg-pink-200 dark:bg-pink-900 text-pink-800 dark:text-pink-200'
-          : 'text-gray-600 dark:text-gray-300 hover:bg-pink-100 dark:hover:bg-gray-700'
+          ? "bg-pink-200 dark:bg-pink-900 text-pink-800 dark:text-pink-200"
+          : "text-gray-600 dark:text-gray-300 hover:bg-pink-100 dark:hover:bg-gray-700"
       }`}
     >
       {icon}
@@ -632,6 +717,3 @@ const SidebarLink = ({ icon, label, onClick, active = false }) => {
     </button>
   );
 };
-
-
-
