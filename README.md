@@ -84,10 +84,11 @@ FlowCare is more than just a platform—it's a movement to create a future where
 We welcome contributions! Feel free to submit issues, feature requests, or pull requests to make FlowCare even better.
 
 1. Fork the repository.
-2. Create a branch for your feature (`git checkout -b feature-name`).
-3. Commit your changes (`git commit -m "Add feature"`).
-4. Push to the branch (`git push origin feature-name`).
-5. Open a Pull Request.
+2. install required deps `npm i`  
+3. Create a branch for your feature (`git checkout -b feature-name`).
+4. Commit your changes (`git commit -m "Add feature"`).
+5. Push to the branch (`git push origin feature-name`).
+6. Open a Pull Request.
 
 ---
 
@@ -96,8 +97,13 @@ Let's normalize menstrual health education and create a stigma-free society toge
 
 
 
-
-
+### For backend deployment
+```
 npm i -g vercel
+```  
+```
 vercel login
+```  
+```
 vercel deploy --prod
+```
