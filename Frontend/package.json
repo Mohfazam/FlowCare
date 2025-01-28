@@ -19,6 +19,7 @@
     "bootstrap": "^5.3.3",
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.7",
+    "express": "^4.21.2",
     "framer-motion": "^11.15.0",
     "lucide-react": "^0.468.0",
     "prop-types": "^15.8.1",
@@ -28,6 +29,9 @@
     "react-feather": "^2.0.10",
     "react-icons": "^5.4.0",
     "react-router-dom": "^7.0.2",
+    "socket.io-client": "^4.8.1",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7",
     "vite": "^6.0.1"
   },
   "devDependencies": {
