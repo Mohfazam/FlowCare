@@ -1,7 +1,8 @@
-import React, { useState } from "react"
-import { motion } from "framer-motion"
-import { CalendarIcon, MapPin, Search, Star, Clock, DollarSign, ChevronDown, Sun, Moon } from "lucide-react"
-import { Sidebar } from "./Sidebar"
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { CalendarIcon, MapPin, Search, Star, Clock, DollarSign, ChevronDown, Sun, Moon } from "lucide-react";
+import { Sidebar } from "./Sidebar";
+import Footer from "./Footer"; // Import the Footer component
 
 const specializations = [
   "Gynecology",
@@ -9,7 +10,7 @@ const specializations = [
   "Reproductive Endocrinology",
   "Urogynecology",
   "Gynecologic Oncology",
-]
+];
 
 const doctors = [
   {
@@ -42,20 +43,20 @@ const doctors = [
     price: 200,
     image: "/placeholder.svg?height=100&width=100",
   },
-]
+];
 
 export function Consultations() {
-  const [selectedSpecialization, setSelectedSpecialization] = useState("")
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const [darkMode, setDarkMode] = useState(() => localStorage.getItem("darkMode") === "true")
+  const [selectedSpecialization, setSelectedSpecialization] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => localStorage.getItem("darkMode") === "true");
 
   const toggleDarkMode = () => {
     setDarkMode((prevMode) => {
-      const newMode = !prevMode
-      localStorage.setItem("darkMode", newMode.toString())
-      return newMode
-    })
-  }
+      const newMode = !prevMode;
+      localStorage.setItem("darkMode", newMode.toString());
+      return newMode;
+    });
+  };
 
   return (
     <div className={`flex h-screen ${darkMode ? "dark" : ""}`}>
@@ -132,8 +133,8 @@ export function Consultations() {
                         <li
                           key={spec}
                           onClick={() => {
-                            setSelectedSpecialization(spec)
-                            setIsDropdownOpen(false)
+                            setSelectedSpecialization(spec);
+                            setIsDropdownOpen(false);
                           }}
                           className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer dark:text-white"
                         >
@@ -190,8 +191,8 @@ export function Consultations() {
             ))}
           </div>
         </div>
+        <Footer /> {/* Render the Footer component */}
       </main>
     </div>
-  )
+  );
 }
-
