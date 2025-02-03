@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Calendar, Frown, HeartPulse, Smile, Angry,MessageSquare, Coffee, Zap, Moon, ChevronDown, ChevronUp, Heart, Sun, LayoutDashboard, Home, GraduationCap, ShoppingBag, ActivitySquare, Stethoscope, Bot } from 'lucide-react';
 import axios from 'axios'; 
 import { Sidebar } from "./Sidebar"
-
+import { Footer } from "./Footer";
 
 const server_url = import.meta.env.VITE_SERVER_URL;
 const local_url = 'http://localhost:3000/';
@@ -601,6 +601,7 @@ export function PeriodTracker() {
             </button>
           </div>
         </div>
+        <Footer darkMode={darkMode} />
       </main>
     </div>
   );

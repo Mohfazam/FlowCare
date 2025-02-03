@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, HeartPulse, MessageSquare, Frown, Smile, Angry, Coffee, Zap, Moon, ChevronDown, ChevronUp, Heart, Sun, LayoutDashboard, Home, GraduationCap, ShoppingBag, ActivitySquare, Stethoscope, Bot, Search, BookOpen, Utensils, Leaf, Clock, Filter, Bookmark, Share2, Award, Sparkles, Brain, Dumbbell, Pill, Droplet, X, TrendingUp, BarChart, Bell, Info, ArrowRight, ThumbsUp, ThumbsDown, Lock, Unlock } from 'lucide-react';
 import { Sidebar } from "./Sidebar"
+import { Footer } from "./Footer";
 
 // Existing blog posts and women's health topics data...
 // (Keep the existing data for blogPosts and womenHealthTopics)
@@ -772,6 +773,7 @@ export function Blogs() {
           {/* Quiz Section */}
           {showQuiz && <Quiz />}
         </div>
+        <Footer darkMode={darkMode} />
       </main>
 
       {/* Modal for selected post */}

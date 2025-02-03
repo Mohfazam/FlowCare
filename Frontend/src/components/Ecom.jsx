@@ -46,6 +46,7 @@ import {
 import { element } from "prop-types";
 import { Dashboard } from "./Dashboard";
 import { useNavigate } from "react-router-dom";
+import { Footer } from "./Footer";
 
 const products = [
   {
@@ -949,6 +950,7 @@ export function Ecom() {
             )}
           </AnimatePresence>
         </div>
+        <Footer darkMode={darkMode} />
       </main>
     </div>
   );
