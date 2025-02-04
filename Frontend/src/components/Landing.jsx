@@ -27,6 +27,7 @@ import {
   UsersRound,
 } from "lucide-react";
 import { Sidebar } from "./Sidebar"
+import { Footer } from "./Footer";
 
 
 export function Landing() {
@@ -615,145 +616,8 @@ export function Landing() {
               </div>
             </div>
           </Card>
-
-          {/* Footer */}
-          <footer className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              <div>
-                <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">
-                  Company
-                </h4>
-                <ul className="space-y-2">
-                  <li>
-                    <button
-                      onClick={() => navigate("/symptomsanalyzer")}
-                      className="text-gray-700 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400"
-                    >
-                      About Us
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => navigate("/parents")}
-                      className="text-gray-700 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400"
-                    >
-                      Careers
-                    </button>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="text-gray-700 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400"
-                    >
-                      Press
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">
-                  Resources
-                </h4>
-                <ul className="space-y-2">
-                  <li>
-                    <a
-                      href="#"
-                      className="text-gray-700 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400"
-                    >
-                      Blog
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="text-gray-700 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400"
-                    >
-                      Help Center
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="text-gray-700 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400"
-                    >
-                      Community
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">
-                  Legal
-                </h4>
-                <ul className="space-y-2">
-                  <li>
-                    <a
-                      href="#"
-                      className="text-gray-700 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400"
-                    >
-                      Privacy Policy
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="text-gray-700 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400"
-                    >
-                      Terms of Service
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="text-gray-700 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400"
-                    >
-                      Cookie Policy
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">
-                  Connect
-                </h4>
-                <ul className="space-y-2">
-                  <li>
-                    <a
-                      href="#"
-                      className="text-gray-700 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400"
-                    >
-                      Twitter
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="text-gray-700 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400"
-                    >
-                      Facebook
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="text-gray-700 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400"
-                    >
-                      Instagram
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700 text-center">
-              <p className="text-gray-700 dark:text-gray-400">
-                TEAM: EmpowerHer
-              </p>
-              <p className="text-gray-700 dark:text-gray-400">
-                &copy; 2024 FlowCare. All rights reserved.
-              </p>
-            </div>
-          </footer>
         </div>
+        <Footer darkMode={darkMode} />
       </main>
     </div>
   );

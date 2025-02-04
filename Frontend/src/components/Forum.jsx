@@ -23,6 +23,7 @@ import {
   Award,
 } from "lucide-react"
 import { Sidebar } from "./Sidebar"
+import { Footer } from "./Footer";
 
 export function Forum() {
   const navigate = useNavigate()
@@ -365,6 +366,7 @@ export function Forum() {
             </ul>
           </div>
         </div>
+        <Footer darkMode={darkMode} />
       </main>
     </div>
   )
