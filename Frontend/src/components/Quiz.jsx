@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Check, X, AlertCircle } from 'lucide-react';
+import { Footer } from './Footer'; 
 
 export function Quiz({ onQuizComplete }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -152,7 +153,7 @@ export function Quiz({ onQuizComplete }) {
           )}
         </>
       )}
+      <Footer darkMode={false} /> 
     </div>
   );
 }
-
