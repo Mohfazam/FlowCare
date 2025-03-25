@@ -7,7 +7,7 @@ import { Sidebar } from "./Sidebar"
 
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
-const genAI = new GoogleGenerativeAI("AIzaSyAc1l4zjH_fiCzprd5pE77A9ikQtA-xZuc");
+const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 const popularEmojis = [
