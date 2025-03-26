@@ -77,6 +77,14 @@ export function SymptomAnalysis() {
     return false;
   });
 
+  const handleSymptomToggle = (symptom) => {
+    setSelectedSymptoms((prev) =>
+      prev.includes(symptom)
+        ? prev.filter((s) => s !== symptom)
+        : [...prev, symptom]
+    );
+  };
+
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add("dark");
